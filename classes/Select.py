@@ -37,3 +37,9 @@ class Select:
         # print(menu_entry_indices)
         # print(terminal_menu.chosen_menu_entries)
         return terminal_menu.chosen_menu_entries
+
+    def selectOne(self, options):
+        terminal_menu = TerminalMenu(options)
+        # menu_entry_index = terminal_menu.show()
+        menu_entry_index = terminal_menu.show()
+        return options[menu_entry_index]
