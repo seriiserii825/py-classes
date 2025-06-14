@@ -1,7 +1,6 @@
 from rich.console import Console
 from rich.table import Table
 
-
 class MyTable:
     """
     table_title = "Contact Form Fields"
@@ -13,8 +12,7 @@ class MyTable:
         else:
             table_rows.append([field, '[red]No required', field])
     """
-
-    def show(self, title, columns, rows):
+    def show(self,title, columns, rows):
         """
         Show a table with the given title, columns, and rows.
         """
@@ -28,3 +26,5 @@ class MyTable:
 
         console = Console()
         console.print(table)
+        
+
