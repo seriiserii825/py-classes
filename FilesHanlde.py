@@ -1,11 +1,10 @@
 import os
-from simple_term_menu import TerminalMenu
 from datetime import datetime
 from rich import print
-from classes.MyTable import MyTable
-from libs.select import selectOne
-from libs.selectWithFzf import selectWithFzf
-from pyfzf.pyfzf import FzfPrompt
+
+from MyTable import MyTable
+from Select import Select
+
 
 class FilesHandle:
     def __init__(self, basepath: str):
@@ -18,8 +17,7 @@ class FilesHandle:
         for entry in os.listdir(self.basepath):
             if os.path.isfile(os.path.join(self.basepath, entry)):
                 files.append([len(files) + 1, entry])
-        tb = MyTable()
-        tb.show("Files", ["Id","File name"], files)
+        MyTable.show("Files", ["Id", "File name"], files)
 
     def listDir(self, path_to_list=''):
         directories = []
@@ -31,7 +29,8 @@ class FilesHandle:
                     directories.append(entry.name)
         directories.sort()
         tb = MyTable()
-        tb.show("View Folders", ["Id", "Directory name"], [[i + 1, dir_name] for i, dir_name in enumerate(directories)])
+        tb.show("View Folders", ["Id", "Directory name"], [
+                [i + 1, dir_name] for i, dir_name in enumerate(directories)])
 
     def createOrChooseDirectory(self, path_to_dir=''):
         if path_to_dir:
@@ -39,7 +38,7 @@ class FilesHandle:
         else:
             self.basepath = os.getcwd()
         self.listDir(self.basepath)
-        select_or_create = selectOne(["Select", "Create"])
+        select_or_create = Select.select_one(["Select", "Create"])
         if select_or_create == "Create":
             dir_name = input("Enter directory name:")
             if dir_name == '':
@@ -60,7 +59,7 @@ class FilesHandle:
                 if entry.is_dir():
                     choosed_dir.append(entry.name)
         choosed_dir.sort()
-        selected_dir = selectWithFzf(choosed_dir)
+        selected_dir = Select.select_with_fzf(choosed_dir)
         return selected_dir
 
     def listFilesWithPrefix(self, prefix):
@@ -71,11 +70,6 @@ class FilesHandle:
                     if entry.startswith(item):
                         print(entry)
         print(f"Listing directories in ================ {self.basepath}")
-
-    def selectWithFzf(self, items):
-        fzf = FzfPrompt()
-        selected_item = fzf.prompt(items)
-        return selected_item[0]
 
     def chooseFile(self, path_to_dir='', extension=None):
         self.showOrderFilesByCTime(path_to_dir)
@@ -90,7 +84,7 @@ class FilesHandle:
         if len(choosed_files) == 0:
             exit("[red]No files found")
         else:
-            return selectOne(choosed_files)
+            return Select.select_one(choosed_files)
 
     def appendToFile(self, file_path, text):
         with open(file_path, "a") as f:
@@ -104,7 +98,8 @@ class FilesHandle:
 
         files = os.listdir()
         # Collect (filename, ctime) tuples
-        file_ctimes = [(f, os.path.getctime(f)) for f in files if os.path.isfile(f)]
+        file_ctimes = [(f, os.path.getctime(f))
+                       for f in files if os.path.isfile(f)]
 
         # Sort by ctime in reverse order
         file_ctimes.sort(key=lambda x: x[1], reverse=True)
@@ -117,20 +112,8 @@ class FilesHandle:
         tb_rows = []
 
         for i, (file, ctime) in enumerate(file_ctimes):
-            ctime_human = datetime.fromtimestamp(ctime).strftime('%Y-%m-%d %H:%M:%S')
+            ctime_human = datetime.fromtimestamp(
+                ctime).strftime('%Y-%m-%d %H:%M:%S')
             tb_rows.append([i + 1, file, ctime_human])
 
         tb.show(tb_title, tb_headers, tb_rows)
-
-    def selectMultiple(self,options):
-        terminal_menu = TerminalMenu(options,
-                                     multi_select=True,
-                                     show_multi_select_hint=True,
-                                     show_search_hint=True,
-                                     preview_command="bat --color=always {}", preview_size=0.75
-                                     )
-        menu_entry_indices = terminal_menu.show()
-        # print(menu_entry_indices)
-        # print(terminal_menu.chosen_menu_entries)
-        return terminal_menu.chosen_menu_entries
-
