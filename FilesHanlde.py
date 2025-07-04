@@ -8,9 +8,9 @@ from Select import Select
 
 class FilesHandle:
     def __init__(self, basepath: str):
-        self.basepath = basepath if basepath != '' else '.'
+        self.basepath = basepath if basepath != "" else "."
 
-    def listFiles(self, path_to_list=''):
+    def listFiles(self, path_to_list=""):
         if path_to_list:
             self.basepath = path_to_list
         files = []
@@ -19,7 +19,7 @@ class FilesHandle:
                 files.append([len(files) + 1, entry])
         MyTable.show("Files", ["Id", "File name"], files)
 
-    def listDir(self, path_to_list=''):
+    def listDir(self, path_to_list=""):
         directories = []
         if path_to_list:
             self.basepath = path_to_list
@@ -29,10 +29,13 @@ class FilesHandle:
                     directories.append(entry.name)
         directories.sort()
         tb = MyTable()
-        tb.show("View Folders", ["Id", "Directory name"], [
-                [i + 1, dir_name] for i, dir_name in enumerate(directories)])
+        tb.show(
+            "View Folders",
+            ["Id", "Directory name"],
+            [[i + 1, dir_name] for i, dir_name in enumerate(directories)],
+        )
 
-    def createOrChooseDirectory(self, path_to_dir=''):
+    def createOrChooseDirectory(self, path_to_dir=""):
         if path_to_dir:
             self.basepath = path_to_dir
         else:
@@ -41,7 +44,7 @@ class FilesHandle:
         select_or_create = Select.select_one(["Select", "Create"])
         if select_or_create == "Create":
             dir_name = input("Enter directory name:")
-            if dir_name == '':
+            if dir_name == "":
                 print("Directory name is required")
                 exit()
             else:
@@ -71,7 +74,7 @@ class FilesHandle:
                         print(entry)
         print(f"Listing directories in ================ {self.basepath}")
 
-    def chooseFile(self, path_to_dir='', extension=None):
+    def chooseFile(self, path_to_dir="", extension=None):
         self.showOrderFilesByCTime(path_to_dir)
         choosed_files = []
         for entry in os.listdir(self.basepath):
@@ -98,8 +101,7 @@ class FilesHandle:
 
         files = os.listdir()
         # Collect (filename, ctime) tuples
-        file_ctimes = [(f, os.path.getctime(f))
-                       for f in files if os.path.isfile(f)]
+        file_ctimes = [(f, os.path.getctime(f)) for f in files if os.path.isfile(f)]
 
         # Sort by ctime in reverse order
         file_ctimes.sort(key=lambda x: x[1], reverse=True)
@@ -112,8 +114,7 @@ class FilesHandle:
         tb_rows = []
 
         for i, (file, ctime) in enumerate(file_ctimes):
-            ctime_human = datetime.fromtimestamp(
-                ctime).strftime('%Y-%m-%d %H:%M:%S')
+            ctime_human = datetime.fromtimestamp(ctime).strftime("%Y-%m-%d %H:%M:%S")
             tb_rows.append([i + 1, file, ctime_human])
 
         tb.show(tb_title, tb_headers, tb_rows)
