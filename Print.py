@@ -3,12 +3,19 @@ from rich import print
 
 class Print:
     @staticmethod
-    def print(message, error=False):
-        if error:
-            print("=" * 20)
-            print(f"[red]{message}")
-            print("=" * 20)
-        else:
-            print("=" * 20)
-            print(f"[green]{message}")
-            print("=" * 20)
+    def info(message):
+        print("=" * 20)
+        print(f"[blue]{message}")
+        print("=" * 20)
+
+    @staticmethod
+    def success(message):
+        print("=" * 20)
+        print(f"[green]{message}")
+        print("=" * 20)
+
+    @staticmethod
+    def error(message):
+        print("=" * 20)
+        print(f"[red]{message}")
+        print("=" * 20)
