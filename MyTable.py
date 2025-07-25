@@ -6,7 +6,7 @@ class MyTable:
     def __init__(self):
         self.console = Console()
 
-    def show(self, title: str, columns, rows, *, row_styles=None):
+    def show(self, title: str, columns, rows, *, row_styles):
         """
         Print a Rich table.
 
@@ -23,12 +23,11 @@ class MyTable:
             Example: {0: "bold green", 3: "bright_red"}
             (row index is **zero‑based** inside this method)
         """
-        row_styles = row_styles or {}
 
         table = Table(title=title, show_lines=False, expand=False)
 
         for col in columns:
-            table.add_column(col["title"], style=col.get("style", ""))
+            table.add_column(col)
 
         for idx, row in enumerate(rows):
             style = row_styles.get(idx, "")
