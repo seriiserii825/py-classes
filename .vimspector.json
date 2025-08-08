@@ -7,7 +7,7 @@
         "type": "python",
         "request": "launch",
         "module": "pytest",
-        "args": ["tests/test_file_handler.py", "-s"],
+        "args": ["tests/test_input_validator.py", "-s"],
         "justMyCode": false
       }
     }
