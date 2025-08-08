@@ -1,6 +1,32 @@
 version = 1
-revision = 2
+revision = 3
 requires-python = ">=3.13"
+
+[[package]]
+name = "autopep8"
+version = "2.3.2"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "pycodestyle" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/50/d8/30873d2b7b57dee9263e53d142da044c4600a46f2d28374b3e38b023df16/autopep8-2.3.2.tar.gz", hash = "sha256:89440a4f969197b69a995e4ce0661b031f455a9f776d2c5ba3dbd83466931758", size = 92210, upload-time = "2025-01-14T14:46:18.454Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/9e/43/53afb8ba17218f19b77c7834128566c5bbb100a0ad9ba2e8e89d089d7079/autopep8-2.3.2-py2.py3-none-any.whl", hash = "sha256:ce8ad498672c845a0c3de2629c15b635ec2b05ef8177a6e7c91c74f3e9b51128", size = 45807, upload-time = "2025-01-14T14:46:15.466Z" },
+]
+
+[[package]]
+name = "flake8"
+version = "7.2.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "mccabe" },
+    { name = "pycodestyle" },
+    { name = "pyflakes" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/e7/c4/5842fc9fc94584c455543540af62fd9900faade32511fab650e9891ec225/flake8-7.2.0.tar.gz", hash = "sha256:fa558ae3f6f7dbf2b4f22663e5343b6b6023620461f8d4ff2019ef4b5ee70426", size = 48177, upload-time = "2025-03-29T20:08:39.329Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/83/5c/0627be4c9976d56b1217cb5187b7504e7fd7d3503f8bfd312a04077bd4f7/flake8-7.2.0-py2.py3-none-any.whl", hash = "sha256:93b92ba5bdb60754a6da14fa3b93a9361fd00a59632ada61fd7b130436c40343", size = 57786, upload-time = "2025-03-29T20:08:37.902Z" },
+]
 
 [[package]]
 name = "markdown-it-py"
@@ -37,6 +63,8 @@ name = "my-project"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "autopep8" },
+    { name = "flake8" },
     { name = "markdown-it-py" },
     { name = "mccabe" },
     { name = "mdurl" },
@@ -58,6 +86,8 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
+    { name = "autopep8", specifier = ">=2.3.2" },
+    { name = "flake8", specifier = ">=7.2.0" },
     { name = "markdown-it-py", specifier = "==3.0.0" },
     { name = "mccabe", specifier = "==0.7.0" },
     { name = "mdurl", specifier = "==0.1.2" },

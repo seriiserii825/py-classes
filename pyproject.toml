@@ -3,6 +3,8 @@ name = "my_project"
 version = "0.1.0"
 description = ""
 dependencies = [
+    "autopep8>=2.3.2",
+    "flake8>=7.2.0",
     "markdown-it-py==3.0.0",
     "mccabe==0.7.0",
     "mdurl==0.1.2",
