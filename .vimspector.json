@@ -1,0 +1,15 @@
+{
+  "configurations": {
+    "Debug Pytest File": {
+      "adapter": "debugpy",
+      "configuration": {
+        "name": "Debug Pytest File",
+        "type": "python",
+        "request": "launch",
+        "module": "pytest",
+        "args": ["tests/test_file_handler.py", "-s"],
+        "justMyCode": false
+      }
+    }
+  }
+}
