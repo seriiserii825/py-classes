@@ -1,5 +1,4 @@
 from simple_term_menu import TerminalMenu
-import questionary
 import subprocess
 from typing import List
 
@@ -13,11 +12,6 @@ class Select:
         )
         selected = result.stdout.decode().strip().split("\n")
         return selected if selected != [""] else []
-
-    @staticmethod
-    def select_questionary(options: List[str]) -> List[str]:
-        selected = questionary.checkbox("Select options:", choices=options).ask()
-        return selected
 
     @staticmethod
     def select_term_menu(options: List[str]) -> List[str]:
