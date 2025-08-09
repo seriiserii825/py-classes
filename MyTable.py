@@ -14,8 +14,7 @@ class MyTable:
         ----------
         title : str
             Table title.
-        columns : list[dict]
-            Each dict must have keys "title" and "style".
+        columns : list[str]
         rows : list[list[str]]
             2‑D list of cell values.
         row_styles : dict[int, str] | None
